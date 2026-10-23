@@ -69,6 +69,20 @@ In the final tournament stage, the server referee runs **Monte Carlo Tree Search
 
 ---
 
+## 🔄 Model Evolution & Live Tournament Iteration
+
+During the contest, the agent was continuously evolved based on real-time match telemetry:
+
+| Iteration | Stage | Architecture | Tactical Features | Outcome |
+| :--- | :--- | :--- | :--- | :--- |
+| **v1: Baseline Model** | Level 3 Qualification | Linear Material Scorer (`MatMul` + `Tanh`) | Basic piece values and direct destination capture incentives | Qualified for Level 4 tournament vs greedy baseline |
+| **v2: Tactical Model** | Level 4 Opening | Linear Feature Broadcaster | Center ring bias + outer-ring firewall evacuation | Initial tournament entry; identified blunder & bodyguard bottlenecks |
+| **v3: Jennifer ConvNet** | Level 4 Live Tournament | $3 \times 3$ Spatial ConvNet (`Conv` + `ReLU` + `Concat`) | Bodyguard presence detection, enemy threat avoidance, Plane 13 action modulation | Deployed to tournament; climbed rating to 1254+ Elo |
+
+> *Earlier iteration code is preserved under `misc/` for engineering traceability.*
+
+---
+
 ## 🏆 Tournament Results
 
 * **Stage Reached:** **Level 4 Live Tournament** (Finalist)
@@ -83,18 +97,42 @@ In the final tournament stage, the server referee runs **Monte Carlo Tree Search
 ```text
 jennifer/
 ├── README.md                           # Project documentation & tournament breakdown
-├── model.onnx                          # Production-deployed CNN model (23.6 KB)
-├── solver.py                           # Level 1 safe-square pathfinder
-├── game_solver.py                      # Level 2 adversarial minimax solver
-├── level-3/
-│   ├── build_conv_tactical_model.py    # CNN generator script (Opset 18, IR 9)
-│   ├── colony_one/                     # Tournament environment & MCTS referee
-│   └── tools/validate_submission.py    # Local submission validator
-├── level-1/level-1.pdf                 # Problem specification: Level 1
-├── level-2/level-2.pdf                 # Problem specification: Level 2
-├── level-3/level-3.pdf                 # Problem specification: Level 3
-├── level-4/level-4.pdf                 # Problem specification: Level 4
-└── ccc-participation-certificate...pdf # Official CCC participation certificate
+├── .gitignore                          # Standard Python, ONNX & OS ignore rules
+├── requirements.txt                    # Project dependencies
+├── pyproject.toml                      # Official package metadata for colony_one
+├── LICENSE                             # Project license
+│
+├── src/                                # Core Engineering Code
+│   ├── solvers/
+│   │   ├── level1_solver.py            # Level 1 safe-pathfinder
+│   │   └── level2_game_solver.py       # Level 2 adversarial minimax solver
+│   └── models/
+│       └── build_conv_model.py         # Jennifer CNN generator script (Opset 18, IR 9)
+│
+├── colony_one/                         # Tournament environment & MCTS referee
+│   ├── board.py, mcts.py, rules.py, pieces.py, env.py, scene.json...
+│
+├── tools/                              # Tournament evaluation tools
+│   ├── validate_submission.py          # Local submission verification script
+│   └── model_vs_model.py               # Local head-to-head match runner
+│
+├── models/                             # Compiled ONNX model artifacts
+│   ├── jennifer_tournament.onnx        # Production deployed CNN model (23.6 KB)
+│   └── random_baseline.onnx            # Official contest baseline model
+│
+├── contest_levels/                     # Official problem specifications from Cloudflight
+│   ├── level-1/level-1.pdf
+│   ├── level-2/level-2.pdf
+│   ├── level-3/level-3.pdf & docs/
+│   └── level-4/level-4.pdf & level-4_scene.json
+│
+├── assets/                             # Certificates and visuals
+│   └── ccc-participation-certificate...pdf
+│
+└── misc/                               # Earlier iterative drafts
+    ├── build_tactical_model.py         # (Iteration 1: linear baseline)
+    ├── build_tournament_model.py       # (Iteration 2: feature broadcaster)
+    └── original_env_README.md          # (Cloudflight's starter README)
 ```
 
 ---
@@ -103,19 +141,19 @@ jennifer/
 
 ### Prerequisites
 * Python 3.11+
-* `pip install onnx numpy`
+* `pip install -e .`
 
 ### Run Model Builder
-To compile and export the Jennifer ONNX neural network:
+To compile and export the Jennifer ONNX neural network to `models/jennifer_tournament.onnx`:
 ```bash
-python level-3/build_conv_tactical_model.py
+python src/models/build_conv_model.py
 ```
 
 ### Run Minimax Puzzle Solver
 To calculate exact forced-win lines from any board state:
 ```bash
-python game_solver.py <CYAN_KERNEL> <CYAN_PING> <MAGENTA_KERNEL>
-# Example: python game_solver.py C3 F5 F8
+python src/solvers/level2_game_solver.py <CYAN_KERNEL> <CYAN_PING> <MAGENTA_KERNEL>
+# Example: python src/solvers/level2_game_solver.py C3 F5 F8
 ```
 
 ---
