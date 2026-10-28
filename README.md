@@ -1,13 +1,30 @@
-# 🛸 Jennifer — Autonomous Tactical Game AI & Adversarial Engine
+<div align="left">
+  <img src="assets/AppLogo.svg" alt="Jennifer" width="450">
+</div>
 
 [![Competition](https://img.shields.io/badge/Competition-42nd%20Cloudflight%20Coding%20Contest%20(Data%2FAI)-blue.svg)](https://codingcontest.org)
-[![Status](https://img.shields.io/badge/Stage-Level%204%20Tournament%20Finalist-gold.svg)](#tournament-results)
-[![Model](https://img.shields.io/badge/ONNX-Opset%2018%20%7C%2023.6%20KB-success.svg)](#jennifer-neural-architecture)
+[![Status](https://img.shields.io/badge/Stage-Level%204%20Tournament%20Finalist-gold.svg)](#-tournament-results)
+[![Model](https://img.shields.io/badge/ONNX-Opset%2018%20%7C%2023.6%20KB-success.svg)](#3-levels-3--4--the-jennifer-neural-network)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 > **Jennifer** is an autonomous tactical game AI, adversarial search engine, and custom neural policy-value model developed for the **42nd Cloudflight Coding Contest (Data/AI Edition)** on the cyber-themed strategy environment ***Colony: One***.
 >
 > Successfully qualified through all algorithmic puzzle rounds (Levels 1–3) to reach the **Level 4 Live Cloud Tournament**, competing in real-time pairing rounds among **330+ global entries**.
+
+---
+
+## Table of Contents
+- [The Game: *Colony: One*](#-the-game-colony-one)
+  - [Pieces](#pieces)
+- [System Architecture & Progression](#-system-architecture--progression)
+  - [1. Level 1 — Survival Pathfinding](#1-level-1--survival-pathfinding)
+  - [2. Level 2 — Minimax Adversarial Engine](#2-level-2--minimax-adversarial-engine)
+  - [3. Levels 3 & 4 — The Jennifer Neural Network](#3-levels-3--4--the-jennifer-neural-network)
+- [Model Evolution & Live Tournament Iteration](#-model-evolution--live-tournament-iteration)
+- [Tournament Results](#-tournament-results)
+- [Repository Structure](#️-repository-structure)
+- [Quickstart](#-quickstart)
+- [Author](#-author)
 
 ---
 
