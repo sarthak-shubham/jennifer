@@ -1,0 +1,45 @@
+name: CI - Tournament Validation & Solver Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Build, Validate & Benchmark
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Package & Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -e .
+
+      - name: 1. Compile Jennifer CNN ONNX Model
+        run: |
+          python model_builders/build_jennifer_cnn.py
+
+      - name: 2. Validate Official Tournament Submission Compliance
+        run: |
+          python tools/validate_submission.py models/jennifer_tournament.onnx
+
+      - name: 3. Verify Deterministic Puzzle Solvers
+        run: |
+          python solvers/level1_safe_pathfinder.py E4 H4 A4
+          python solvers/level2_minimax_solver.py C3 F5 F8
+
+      - name: 4. Run Head-to-Head Benchmark (10 Matches vs Baseline)
+        run: |
+          python tools/model_vs_model.py --model-a models/jennifer_tournament.onnx --model-b models/random_baseline.onnx --games 10
