@@ -1,4 +1,6 @@
-# Jennifer
+<div align="left">
+  <img src="assets/AppLogo.svg" alt="Jennifer" width="280">
+</div>
 
 [![CI](https://github.com/sarthak-shubham/jennifer/actions/workflows/ci.yml/badge.svg)](https://github.com/sarthak-shubham/jennifer/actions/workflows/ci.yml)
 
@@ -49,8 +51,6 @@ python solvers/level2_minimax_solver.py C3 F5 F8
 
 ## Tournament Results (Level 4)
 
-[![Cloudflight Tournament Dashboard](assets/dashboard_view.png)](assets/dashboard_view.png)
-
 | Metric | Value |
 |:---|:---|
 | Competing models | 293 |
@@ -58,8 +58,15 @@ python solvers/level2_minimax_solver.py C3 F5 F8
 | Throughput | 91.80 matches / min |
 | Deployed size | 23.6 KB (limit: 5 MB) |
 | Levels cleared | 1, 2, 3, 4 |
+| Verification | [Official Contest Certificate (PDF)](assets/participation_certificate.pdf) |
 
-Participation: [certificate](assets/participation_certificate.pdf)
+<details>
+<summary><b>View Arena Telemetry Screenshot</b></summary>
+<br>
+
+[![Cloudflight Tournament Dashboard](assets/dashboard_view.png)](assets/dashboard_view.png)
+
+</details>
 
 ---
 
@@ -69,6 +76,6 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the state encoding, convolu
 
 ---
 
-## Author
+## License
 
-**Sarthak Shubham** — [GitHub](https://github.com/sarthak-shubham)
+MIT License. See [LICENSE](LICENSE) for terms.
